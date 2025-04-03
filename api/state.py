@@ -28,6 +28,8 @@ class Article:
         categories = data.get("arguments", {}).get("article_categories")
         self.tool_argument = {"article_categories": categories}
 
+        print(self.tool_call_raw)
+
     
 class GraphState(TypedDict):
     data: str

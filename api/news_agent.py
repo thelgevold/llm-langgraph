@@ -35,7 +35,7 @@ def get_categories(state: GraphState):
 
     for article in articles:
         content= f"""You are an assistant who will use the tool called get_article_categories. Determine the categories that best describe this text: {article.summary}
-        Use only categories from the following list: Politics, Sports, Immigration, Food, Entertainment, Business, Crime, Weather, Technology, Medicine, Science or Other. 
+        Use only categories from the following list: Real Estate, Politics, Sports, Immigration, Food, Entertainment, Business, Crime, Weather, Technology, Medicine, Science or Other. 
         You may select more than one category per text"""
         
         request = [SystemMessage(content=content)]
