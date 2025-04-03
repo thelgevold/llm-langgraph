@@ -1,0 +1,14 @@
+beautifulsoup4 
+requests
+fastapi 
+uvicorn
+
+langgraph 
+langchain 
+langchain-community 
+langchainhub 
+langchain-core
+langchain-ollama
+
+ipython
+grandalf

@@ -1,0 +1,62 @@
+services:
+ 
+  api:
+    build: .
+    restart: always
+    ports:
+      - "8081:9000"
+    networks:
+      - ollama-docker  
+    volumes:
+      - ./api:/usr/api
+
+  llm-with-tool-calling:
+    image: ollama/ollama:0.4.0
+    ports:
+      - 11435:11434
+    volumes:
+      - .:/code
+      - ./ollama/ollama:/root/.ollama
+    container_name: llm-with-tool-calling
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: "all"
+              capabilities: [gpu]
+    pull_policy: always
+    tty: true
+    restart: always
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+      - OLLAMA_HOST=0.0.0.0
+    networks:
+      - ollama-docker
+  llm-without-tool-calling:
+    image: ollama/ollama:0.4.0
+    ports:
+      - 11436:11434
+    volumes:
+      - .:/code
+      - ./ollama/ollama:/root/.ollama
+    container_name: llm-without-tool-calling
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: "all"
+              capabilities: [gpu]
+    pull_policy: always
+    tty: true
+    restart: always
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+      - OLLAMA_HOST=0.0.0.0
+    networks:
+      - ollama-docker    
+   
+networks:
+  ollama-docker:
+    external: false
